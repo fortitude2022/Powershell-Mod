@@ -173,6 +173,136 @@ this saves an alias to the $profile AllUsersAllHosts
 
 Remove-item alias:<alias>
 
+VARIABLES:
+
+$ used both for declaring AND using, at all times
+	Python		Bash		PS
+Inst	Free		Free		$pay
+
+Call	Free		$pay		$pay
+#way to remember how to use $ for variables
+
+$money = 'all of it'
+#^ instantiate
+
+$money
+#^ call
+
+obj types:
+
+$variable.GetType()
+#method to determine
+
+STRING: anything in quotes
+Integer / Int32 : number
+Float / Double (Integer) : decimal number, no quotes/tcasting needed
+
+Must compare likes with likes
+
+([string]$money).GetType()
+# method used to typecast; GetType is just used to test it
+
+-Anything in parethesis will run first just like in PEMDAS
+
+- Method = an action you can run against an object
+
+Integers --> Strings
+Strings -->X Integers
+	string must consist of only a number, otherwise it will not work
+
+[typecast]$var can be used when instantiating a variable
+ char and byte also work but very rare unless you are working with packet manipulation or steganography
+ 
+ [datetime] date typecast
+ use it when differentiating against a division or subtraction command as to not confuse PS
+ 
+ you can also give PS a hex value 0xABCDE and it will be able to translate it for you mathematically
+ 
+ variable substitution:
+ 
+ $replace = "all work and no play makes jack a dull boy"
+ 
+ Write-Host $replace # prints to scr
+ 
+ Write-Host $replace "that are not broken"
+ # will cat the two together
+ 
+ $truth = "$replace that are not broken"
+ 
+ $truth # prints catted string
+ 
+ $service = Get-Service
+ # calling the variable will run the command and the output will be stored into that variable
+ 
+$service = $(Get-Service)
+# wont hold data, it will execute upon every call to that variable
+
+VARIABLES are only stored in the current session, released upon exit of script and/or function
+
+Get-ChildItem variable:*
+# prints all variables, to include built in vars
+
+Environmental variables:
+Variables owned/maint/updtd by OS
+	refreshed by OS
+	
+	-Stored under env
+Get-ChildItem env:*
+#outputs all envars
+
+new-item $env:SystemDrive -ItemType File -Name petya.exe
+
+ls $env:Path
+#doesnt work as is
+
+Automatic vars:
+	owned by PS
+	decl on PS start
+	
+$$ is last token used
+$? is execution status of last command (whether it executed successfully or not)
+$^ is first token used in last operation
+$_ is current object in current pipeline
+	good for loops
+$PSItem = $_
+	same but good to use one or other depending on circumstance
+$args is array of undeclared parameters
+$input is enumeration of all current parameters passed to a function
+# plenty more than just these, online resources available
+
+$null is NOTHING
+	used to compare an item to this
+	can also be used to nullify/zero-out a variable
+$true is literally just True
+	good for booleans
+$false is False
+	good for bools
+$profile 
+	AUTOMATIC variable
+	path to profile
+$profile.All/CurrentUsersA/CHosts 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
