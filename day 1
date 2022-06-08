@@ -236,7 +236,6 @@ Strings -->X Integers
  
 $service = $(Get-Service)
 # wont hold data, it will execute upon every call to that variable
-
 VARIABLES are only stored in the current session, released upon exit of script and/or function
 
 Get-ChildItem variable:*
