@@ -282,17 +282,40 @@ $profile
 $profile.All/CurrentUsersA/CHosts 
 
 
+ARRAYS:
+
+object that holds multiple values:
+
+$array = @() # decl of an empty array
+
+[array]$more_arrays = $null # same as above, decl empty array
+
+$number_array = 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+$seq_numbers = 1..10 # similar to bash {range} 
+
+$seq_numbers[3] # gets number at index 3
+
+$seq_numbers | select -Index 3 # gets num at index 3
+
+Nested/Jagged Arrays:
+$matryoshka = 12, 30, $other_array, 69
+$matryoshka[2][1] # will look into index 2 array and grab that array's index 1 value
+
+Multidimensional Array:
+Array-ception multiple layers deep
+
+$inception = tri, square, $matryoshka, cir
+
+STRING ARRAYS:
+
+Polymorhpich arrays: # contain values of different types like str AND int together
 
 
 
-
-
-
-
-
-
-
-
+$unclass[2]
+$unclass | select -Index 2
+$unclass.count-1
 
 
 
