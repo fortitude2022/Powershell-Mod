@@ -1,0 +1,182 @@
+History:
+	Cmd prompt fist windows shell
+	MSDOS
+	
+	OS Kernel
+		Application
+			DCOM - translate what you type in cmd
+		---->(conhost would be implemented ehre)
+				cmd
+					initially limited capability
+					later increase capbty with DCOM
+			^^	conhost (technically the SHELL)
+					somewhat replaced DCOM
+					
+			Powershellv1 Introduced in 2003/XP
+				initially glorified cmd prompt w/ color change
+				still used conhost
+				GOES STRAIGHT TO KERNEL, bypass DCOM and App
+				^ means its highly exploitable
+				
+			.Net
+				MS programming framework
+				Kernel is made out of
+
+PS (C#) -> Conhost -> .Net -> Kernel
+RAM intensive
+
+Powershell v5.1 Win10 and newer
+	encoded commands will be translated and log
+	can be worked around
+	
+Open source powershell core
+	v6 and v7
+	v6
+		took away from v5 but made compat with most linux distros and apple iOS
+	v7
+		v6 but with more capablt like v5.1
+	
+#get-help git-gud
+
+<#
+for ($x in $y) {
+    do something
+   }
+#>
+
+
+#execute as a single line 
+@'
+do this
+get that
+exploit-russia
+'@
+
+
+get-help get-help
+
+
+ctrl+arrow key goes word hy word, Home button goes to head of line
+
+
+Why powershell is powerfull
+
+everything runs off the kernel
+they made a pseudo-kernel (.Net) to defend the Kernel
+
+Powershell is kernel level application
+	PoSh 
+	can request direct access to kernel w/o going through the .Net pseudo-kernel
+	
+	limited via execution policies;
+	policy tells ps what it can/cannot do 
+	restricted by default
+	access w/ Get-ExecutionPolicy
+	
+	signing
+	
+	remote signing
+		script signed by foreign computer
+		
+	
+Get-Help
+Update-Help -Force -ErrorAction SilentlyContinue
+
+use Get-Help Verb-Noun -online for ms online support
+search cmdlets with docs after to find ms docs on it
+
+syntax can be shortened
+
+argument value pass thru param
+switch is a boolean argument thats true if present
+
+Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope LocalMachine
+	this sets a Restricted policy on the local machine
+Set-ExecutionPolicy Unrestricted -Force
+	sets it to unr
+	
+Get-Help *firewall*
+	keyword seach with Get-Help cmdlet
+	
+Get-Command -Name *process*
+Get-Verb -Verb *get*
+Get-Command -noun wmi*
+# asterisk* placement matters
+Get-Command -verb get -noun wmi*
+#searches for get commands starting with wmi
+
+get-help about_arrays
+#gets help on arrays in ps
+
+get-help Get-Service
+
+	cmdlet is listed 3 times
+	each one is a param set
+		diff params for each set
+
+Get-ChildItem -Path C:\ -Filter *.evil -Recurse -Name
+# get CIs in C drive, recursice search; print the name
+
+Swtich parameters:
+	-On or Off
+	-only way its turned on is if its with that switch
+	-does not accept arguments
+	-Recurse above
+Positional Params:
+	- call it or omit
+	- on omit:
+		ps will look for arguments
+		will look at first argument and assume 
+		(will go over later in functions)
+	- -Path is pos param for Get-CItem
+	- C:\ is the argument passed to the Param
+
+Common Params:
+	- set to every single cmdlet 
+	- -Name in above
+
+Aliases exist for cmdlets
+	often paired with linux cmds
+	
+get-item alias:*
+gets all aliases 
+
+get-alias -Name <cmd>
+gets cmdlet of an alias
+get-alias gi
+shows get-item cmdlet
+
+common:
+% ForEach-Object
+
+create an alias:
+
+New-Alias -Name <alias> -Value <cmdlet; can be extended with options>
+called with invoke-command <name>
+
+Set-Alias is better
+	setting something that doesnt exist will create it
+	can also OVERWRTIE pre existing aliases
+
+Aliases only exist for that ps session
+
+Can be saved with $profile
+
+$profile.
+All user All host
+A u C h
+C u A h
+Current u Current h
+
+Add-Content -Path $profile.AllUsersAllHosts -Value "set-alias -Name <alias> -Value <cmdlet>"
+this saves an alias to the $profile AllUsersAllHosts
+
+Remove-item alias:<alias>
+
+
+
+
+
+
+
+
