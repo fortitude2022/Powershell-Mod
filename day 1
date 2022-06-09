@@ -309,15 +309,32 @@ $inception = tri, square, $matryoshka, cir
 
 STRING ARRAYS:
 
-Polymorhpich arrays: # contain values of different types like str AND int together
+Polymorphic arrays: # contain values of different types like str AND int together
 
 
 
 $unclass[2]
 $unclass | select -Index 2
 $unclass.count-1
+#unfinished note section...
+
+HASH TABLES:
+
+def: similar to array; holds key value pairs 
+
+$hasht = @{} # basic init of a hashtable
+
+$ordered_hash = [ordered]@{} # needed 
 
 
+syntax:
+$hashtable = @{ game = "insurgency" ; meme = "amogus" ; goat = "bf4"} #unordered will print out of ordered
+
+$hashtable.<Keys> ... will print <Values>
+Keys can be Keys or a specific Key, as can values
+
+$hashtable.newkey="newvalue" # adds an entry to the table
+$hashtable.remove("Key") # removes that entry
 
 
 
