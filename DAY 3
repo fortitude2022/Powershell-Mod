@@ -82,10 +82,28 @@ Get-content is an arrray of elements similar to python .readlines()
 
 
 
+#PART II 
+$procs = "notepad", "iexplore", "mspaint"
+
+$procs | ForEach-Object { Start-Process $_ }
+
+$file1 = "$pwd\procs.txt"
+
+foreach($proc in $procs) {
+    Get-Process | Where-Object{$_.Name -like $proc} | ForEach-Object{Add-Content $file1 $_.Id}
+    }
+Get-Content .\procs.txt | ForEach-Object{Stop-Process $_}
+
+#GOOD CODE HERE: USED TO GET PID OF LISTED PROCESSES AND OUTPUT TO TXT
 
 
-
-
+$procs = "notepad", "msedge", "mspaint"
+$procs | ForEach-Object {Start-Process $_}
+foreach($proc in $procs)
+{
+Get-Process | Where-Object{$_.name -like $proc} | Format-Table -Property id, name, starttime, totalprocessortime, virtualmemorysize, workingset64
+}
+# This ones opens procs, starts them, and formats a table using their id, name, starttime, processortime and memory use
 
 
 
