@@ -1,0 +1,169 @@
+Objects: Properties and Methods
+
+The Powershell Pipeline:
+	output of a cmdlet is an object, and the pipeline is looking for an object...
+	get-service is limited in its output
+	get-service | get-member will give you those properites and methods <--- IMPORTANT as this gives you options on how to create a cmdlet command
+	
+	for formatting
+	get-command -verb format
+		suggests formatting options
+	| it to format-table * OR format-list
+	
+	host vs output
+	write-host| sort
+	write-output | sort
+	
+	write-host is literal, the entirety of whats 'written' is a single object that cant be sorted
+	write-output is sortable
+	
+	get-service | sort-object -property status
+	get-service | group-object -Property Status | Format-Table -Wrap # prints a condensed list
+	get-service | where-object {$_.Status -eq 'Running' -and $_.Name -like "*wmi*"} # wont work bcause cant have running/stopped simeaut lol
+		# IMPORTANT SYNTAX: this filters output by status column and only on whether its running
+	get-service | where-object {$_.Status -eq 'Running'} | Select-Object -Frist 10 #prints first 10 matches
+	
+	get-childitem -recurse | measure-object # measures size of object piped to it
+	
+	
+#Use in a func example:
+	
+'what is the meaning...' > test.txt
+$before = Get-ChildItem
+
+'42' > test.txt
+$after = Get-Childitem
+
+Compare-Object $before $after -Property Length, Name
+
+
+CUSTOM OBJECTS
+
+PS C:\windows\system32> $mycar = New-Object Object
+PS C:\windows\system32> add-member -membertype Noteproperty -Name Color -Value blue -InputObject $mycar
+PS C:\windows\system32> Add-Member -MemberType NoteProperty -InputObject $mycar -Name Make -Value mazda
+PS C:\windows\system32> $mycar
+Color Make 
+----- ---- 
+blue  mazda
+
+PS C:\windows\system32> Add-Member -InputObject $mycar Noteproperty Model "RX-8"
+PS C:\windows\system32> $mycar | add-member Noteproperty Cab "8-door exp van"
+PS C:\windows\system32> Add-Member -InputObject $mycar ScriptedMethod Explode {"My apex seals..."}
+PS C:\windows\system32> Add-Member -InputObject $mycar ScriptMethod Explode {"My apex seals..."
+$mycar
+Color Make  Model Cab           
+----- ----  ----- ---           
+blue  mazda RX-8  8-door exp van
+
+PS C:\windows\system32> $mycar.explode()
+My apex seals...
+
+
+comparison operators
+
+-eq must match; usually boolean output, will give you one that matches
+2 -eq 2 returns True
+1,2,3 -eq 2 will return 2, as thats the value that matches
+"abc", "def" -eq "abc" will return "abc" due to match; WILL NOT return if vice versa, instead will ret False
+
+-ne not equals
+"abc" -ne "def" rets True
+"abc" -ne "abc" rets False
+"abc" -ne "def", "abc" rets True, (abc must not equal anything on right )
+"abc", "def" -ne "abc" will ret "def" as thats what is not on right side
+
+also applies to -ge, gt, le, lt
+
+-like >>> "similar to", use the * wcard here
+(assume quotes on txt strings)
+inky -like * 	rets True
+blinky like bl?nky 	rets True
+clyde like [abc]lyde
+pinky -like [l-q]inky
+
+Opposite of -like = -notlike
+
+-match REGEX FRIENDLY
+	to -match for get-process; only needs 'power' (no * needed)
+example:
+$tests = "your acct name is ACE4495"
+$patt = '([A-F]{3})(\d{4})'
+$tests -match $pattern
+
+$matches is a reserved variable (List) and you can refer to previous matches this way via index (each index is one token)
+
+-contains
+use on list objects
+$ghosts = 'blink', 'pink', 'clyde'
+$ghosts -contains 'pinky'
+
+$array -contains $item
+$item -in $array
+
+-and: ol'fashioned boolean; both must match else False
+-or: same old same old; either can be true, none can be false, 
+
+
+IF STATEMENTS
+syntax:
+
+if(arg)
+
+
+
+
+>>>>>Switch<<<<<<< allows you to match through multiple ifs in the same iteration
+syntax:
+
+switch(arg)
+
+$val = "Meg"
+Switch($val) {
+	Peter { "father" }
+	Lois { "mother" }
+	Stewie { "baby" }
+	Chris { "son" }
+	default { "who?" }
+}
+
+
+====== IF STMNT========
+
+if ($line2 -match $patt) {
+    "looks good"
+    $matches[0]
+}
+elseif ($line1 -match $patt) {
+    "feels good"
+    $matches[0]
+}
+else {
+    "S-O-L"
+    }
+
+======SWTICH STMNT========
+
+switch($patt)
+{
+    { $line1 -match $_ } {
+        $model = $matches[0]
+        "model number is on line 1"}
+    { $line2 -match $_ } {
+        $model = $matches[0]
+        "model number is on line 2"}
+    { $line1 -notmatch $_ } {
+        "there is no match for line 1"}
+    { $line2 -notmatch $_ } {
+        "there is no match on line 2"}
+}
+
+=============================
+
+
+
+
+
+
+
+
