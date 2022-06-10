@@ -1,0 +1,93 @@
+while(condition) {
+	codeblock
+}
+
+===DO WHILE LOOP====
+
+#performs once then checks for conditions
+
+do {
+	code
+}while(condition)
+
+
+ex:
+
+$num = 3
+
+do {
+	$num
+	$num++
+}while($num -lt 3)
+
+======FOR STMNT======
+
+for (init; condi; incre)
+{
+	code
+}
+
+ex
+
+for($n1 = 1; $n1 -le 3; $n1++){$n1}
+
+for($i = 0; $i -le 255; $-++) {
+	write-host 129.168.0.$i
+}
+
+======FOR EACH=====
+#waits for whole thing to finish before outputting
+foreach(variable in expression) {
+	code
+}
+
+ForEach($item in Get-Childitem C:\ -Recurse) {
+$itenm.name
+}
+
+=====FOR EACH OBJECT======
+
+Get-ChildItem C:\ -recurse | ForEach-Object {$_.Name}
+#recursive
+#writes each output serpately 
+
+
+=====WHILE WITH BREAK=====
+
+$num = 0
+while($num -l 10) {
+	$num += 1
+	if($num -eq 5 {
+		break #or continue
+	}
+	$num
+}
+
+
+=====FILE - IO=====
+
+Get-Content reads from file
+Set-Content writes to a file
+Add-content appends to a file
+
+sc.exe - service config tool, not set-content
+
+Set-Content -path .\example.txt -value "A string"
+Get-Content -path .\example.txt
+# prints content (cat/head/tail)
+Add-Content -path .\example.txt -value "Plus another"
+# appends to end >>
+
+Get-content is an arrray of elements similar to python .readlines() 
+
+
+
+
+
+
+
+
+
+
+
+
