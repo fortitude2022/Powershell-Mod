@@ -1,63 +1,127 @@
-function q2($arr,$rows,$cols,$key) {
+function q2($arr,$rows,$cols,$key) 
     <# Search the 2 dimensional array for the first occurance of key at column index 0
        and return the value at column index 9 of the same row.
        Return -1 if the key is not found.
     #>
-	if ($arr[0] -eq $key) {
-	$col }
-	else {
-	-1 }
-	
+	OPTION 1
+{
+foreach($whateverin $arr) {
+	if($whatever[0] -eq $key) {
+		return $whatever[9]
+		}
+	}
+	return -1
+	#dont have a -1 inside the foreach loop
 }
+	OPTION 2-------------------------------------------------------------------------------
+{
+$x=0
+foreach($i ins $arr)
+	{
+		if($arr[$x][0] -eq $key)
+		#NF
+
+
+}
+============================================================================================
 function q3 
     <# In a loop, prompt the user to enter positive integers one at time.
        Stop when the user enters a -1. Return the maximum positive
        value that was entered."
 	#>
 {
-$pool = @()
-read-host -Prompt "Insert positive number"
-    while ( $input -gt 0 ) {
-        $pool.add($input) 
-        if ( $input -lt 0 ) {
-            break
-            $pool | measure-object -Maximum }
-            }
+$num = 0
+$high = 0
+while ($num -ne -1) {
+	[int]$num = Read-Host -prompt "add a positive number"
+	if ($num -gt $high){
+		$high = $num
+	}
 }
-
-function q4($filename,$whichline) {
+return $high
+	
+================================================================================================
+function q4($filename,$whichline)
     <# Return the line of text from the file given by the `$filename
 	   argument that corresponds to the line number given by `$whichline.
 	   The first line in the file corresponds to line number 0."
 	#>
+{
+	$cont = get-content -path $filename
+	return $cont[$whichline]
 }
-function q5($path) {
+
+==================================================================================================
+function q5($path) 
     <# Return the child items from the given path sorted
        ascending by their Name
 	#>
+{
+Get-childitem -path $path | sort-object -propert name
 }
-function q6 {
+
+=======================================================================
+function q6 
     <# Return the sum of all elements provided on the pipeline
 	#>
+{
+$sum = 0
+	foreach ( $element in $input ){
+		$sum += $element }
+		return $sum
 }
-function q7 {
+# $input is ALL ELEMENTS (KEYWORD/PHRASE IN QUESTION)
+
+======================================================================
+function q7 
 	<# Return only those commands whose noun is process #>
+{
+get-command -noun process
 }
-function q8($adjective) {
+
+================================================================================
+function q8($adjective) 
     <# Return the string 'PowerShell is ' followed by the adjective given
 	   by the `$adjective argument
 	#>    
+{
+return "Powershell is $adjective"
 }
-function q9($addr) {
+
+=====================================================
+function q9($addr) 
 	<# Return `$true when the given argument is a valid IPv4 address,
 	   otherwise return `$false. For the purpose of this function, regard
 	   addresses where all octets are in the range 0-255 inclusive to
 	   be valid.
 	#>
+	#far better than a regex matcher
+{
+if ($addr -as [IPAdress]){
+	return $true}
+else {
+	return $false}
 }
-function q10 ($filepath,$lasthash) {
+
+OR------
+
+{ return $addr -as [ipaddress] -as [bool]}
+
+=============================================================
+function q10 ($filepath,$lasthash) 
     <# Return `$true if the contents of the file given in the
        `$filepath argument have changed since `$lasthash was
        computed. `$lasthash is the previously computed SHA256
        hash (as a string) of the contents of the file. #>
+#pseduo code:
+	#-obtain filehashes of $filepath
+	#compare w $lasthash
+	##return $true if no match
+	#else $false
+{
+	$hashes = get-filehash $filepath | select-object -expandproperty hash
+	
+	if ($hashes -ne $lasthash){
+		return $true}
+	else {$false}
 }
