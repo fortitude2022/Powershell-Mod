@@ -105,6 +105,253 @@ Get-Process | Where-Object{$_.name -like $proc} | Format-Table -Property id, nam
 }
 # This ones opens procs, starts them, and formats a table using their id, name, starttime, processortime and memory use
 
+$procs | ForEach-Object { Stop-Process -Name $_ }
+#line closes processes listed w/in $procs array
+
+get-service | where{$_.stuffs} | out-def
+				| out-def
+Function (creates its own pipe; its code is dropped to a seperate pipe)
+	once finished exec its code, results get inserted back to main pipe to be output
+	
+	$args and $input are neccessary here
+	
+======== FUCNTIONS ======================
+syntax for declaration
+
+function <name> { code }
+
+one-liner function: function greeting { 'Hello, World!' }
+
+multi-liner: 
+
+function greeting{
+'Hello, World!'
+}
+
+
+	!!!### Call to the function using it's name
+	# Powershell functions are stored in the PSDrive
+	
+to declare/create a function, with a parameter to pass, heres the syntax:
+
+function <name> ($parametername) {funtion code}
+
+example:
+
+function basicb ($parav) 
+{
+	if ($parav) { Write-Host " parameter is the vaule: $ parav" -ForegroundColor Green, -nonewline
+	else { write-host "no parameter passed"}
+{
+
+===Multi Parameter Functions ===
+
+function manypara ($param1, $param2) 
+{
+	if ($param1 -gt $param2 ) {"write host $1"
+	"is greater than"
+	"$param2" }
+	
+}
+
+default values:
+
+placeholder value that exists within the function
+
+function defaultpara {
+	param( $para1 = 90, $para2 = 60 )
+	"Paramters passed are $para1 and $para2"
+	}
+	
+Switch parameters:  ON/OFF
+	Boolean in nature, either on or off
+	Default OFF, must be switched on
+	
+syntax:
+
+function <name> 
+{
+param( [switch] $switchparam )
+function code
+}
+
+Example:
+
+function nintendosw 
+{
+param([Switch] $SwitchPro)
+{
+	if ($SwitchPro) { Write-Host "switch is activated"}
+	
+	else { Write-host "switch is inactive"}
+}
+
+==Side Note ==
+Hear strings:
+invoke-expression and use @"
+
+Mandatory paramets:
+
+function mando
+{
+	param ( [Parameter(Mandatory=$true)]
+	$param
+	)
+	#mandatory=$true forces the function to request a prameter if no argument was specified when calling
+	
+	while ([string]::isnullorwhitespace($param))
+	{
+		$param= read-host -prompt "enter a str"
+	}
+"the argument $param was needed before"
+}
+
+
+Help Parameters:
+
+function helpme
+param 
+(
+[Parameter(mandatory=$true, HelpMessage='Enter and integer')]
+
+[int]param
+
+)
+	while (-not $param) 
+	{
+	$param= read-host -prompt "enter a string"
+	}
+	"argument $param was mandatory"
+}
+
+
+
+Positional Parameters:
+
+function positpar
+{
+	param
+	(
+	[parameter(mandatory=$true,position=0)]
+	[int]param$1
+	[parameter(mandatory=$true,position=1)]
+	[string]$param2	
+	)
+$param.getType()
+$param2.gettype()
+}
+
+Wonky Parameters
+
+function fonky 
+{
+	param
+	(
+	[Parameter(Mandatory=$ture)]
+	[string]$param,
+	
+	[string]$param2,
+	[Parameter(mandatory=$true)]
+	[string]$param3
+	)
+}
+"this is $param 1"
+"this is $param2 2"
+"this is $param3 3"
+
+-------Parameter sets--------------------
+
+function finechina
+{ 
+[CmdletBinding(DefaultParamterSetName='steve')]
+	param
+	(
+	[Parameter(ParameterSetname='steve',mandatory=$true)]
+	$Job,
+	[Parameter(ParameterSetname='salary',mandatory=$true)]
+	$Pay,
+	[Parameter(ParameterSetname='home',mandatory=$true)]
+	$location
+	)
+	$output=$PScmdlet.Parametersetname
+	$output
+}
+
+---------Function blocks-----------------
+
+function block
+{
+[cmdletbinding()]
+	param()
+	
+	Begin 
+	{
+		#block used to provide optional one time preprocessing for function
+		#does whatever is in here prior to anything else in function
+	}
+	Process 
+	{
+		#provide record by record processing for the function
+		#executes as many times as necessary based off of how many objs are sent to func via powershell pipeline
+	}
+	End
+	{
+		#provide optional one time post processing
+		# executes
+
+
+Practice:
+
+foreach ($line in (Get-Childitem C:\)) 
+{
+Begin { $count = 0 }
+<code>
+$count++
+}
+
+
+3 major reserved variables
+$_ $args and $input
+research these! <<<-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
