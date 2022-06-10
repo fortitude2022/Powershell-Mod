@@ -9,7 +9,7 @@ A1).
 		write-debug
 		write-Output
 		write-Progress
-		Write-Warning
+-p		Write-Warning
 		Out-Default
 		Out-Host
 	no cmdlets needed per se for instantiating, typecasting can be performed w/ ([typecast]$var) 
@@ -40,6 +40,63 @@ A3).
 	2: $var2 = Get-Random -Minimum 1 -Maximum 10
 	Write-Host "$var1 + $var2 = $sum"
 	etc...
+A4).
+	$arr = (Get-Random -Minimum -10 -Maximum 0)..(Get-Random -Minimum 1 -Maximum 20)
+	$rev = $arr[($arr.length-1)..0]
+	#creates a random array, then second line reverses it (saved to $rev)
+	#also:
+	[arr]::Reverse($arr) # this will permanently reverse the array under $arr var
+A5).	
+	$employee1 = [ordered]@{}
+		adding vals
+		$employee.First = "Mary"
+		$employee["Last"] = "Hopper"
+		$employee.ID = "001"
+		$employee1["Job"] = " Software Dev"
+		$employee2 = [ordered]@{ First = "John"; Last = "Doe"}
+A6).	
+	get-process | sort-object -Property StartTime | format-table -Property Name, ID, Starttime
+	# inst ex : get-process | where-object {$_.Name -ne "Idle"} 
+		# format a table of processes by start time and ID
+	get-date | select-object -Property Dayofweek
+		# shows current day of the week
+	get-hotfix
+		#as is
+	get-hotfix | sort-object -Property InstalledOn | format-table -Property InstalledOn, Hotfixid
+		# gets hotfix list, sorts via install date, and formats a table using date and id only 
+	add this after // get-hotfix \\ | where-object {$_.Description -eq "Update"} 
+		#this gets only the objects with Description Property of "Update"
+A7).
+	PS C:\windows\system32> $compinfo = Get-WmiObject win32_computersystem
+	PS C:\windows\system32> $osinfo = Get-WmiObject win32_operatingsystem
+	PS C:\windows\system32> $biosinfo = Get-WmiObject win32_BIOS
+	PS C:\windows\system32> $diskinfo = Get-WmiObject win32_logicaldisk
+	PS C:\windows\system32> $comob = New-Object -TypeName psobject
+	PS C:\windows\system32> $comob | add-member -MemberType NoteProperty -Name ComputerName -Value $compinfo.Name
+	PS C:\windows\system32> $comob | add-member -MemberType NoteProperty -Name OperatingSystem -Value $osinfo.Caption
+	PS C:\windows\system32> $comob | add-member -MemberType NoteProperty -Name Version -Value $osinfo.Version
+	PS C:\windows\system32> $comob | add-member -MemberType NoteProperty -Name Manufacturer -Value $biosinfo.Manufacturer
+	PS C:\windows\system32> $comob | add-member -MemberType NoteProperty -Name Disks -Value $diskinfo.__PATH
+	PS C:\windows\system32> $comob
+	ComputerName    : WIN-OPS
+	OperatingSystem : Microsoft Windows 10 Pro
+	Version         : 10.0.19044
+	Manufacturer    : SeaBIOS
+	Disks           : \\WIN-OPS\root\cimv2:Win32_LogicalDisk.DeviceID="C:"
+
+		# in the add-member lines, the $variable.property is whats being stripped and added to the object
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
