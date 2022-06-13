@@ -1,0 +1,123 @@
+Final morning review
+
+$cont = get-content .\random.txt
+$count = 0 
+foreach ( $line -in $content) {
+write-host $count -nonewline; write-host "-"$line; $count++
+  }
+  
+	#this reads the line 1 by one and writes the output ot the concole, with \n mod, and $count acting as a number per line
+	
+#cont = get-content .\random.txt
+foreach ( $line -in  $content) {
+if (($line.startswith("it's")) {
+	write-host $line }
+#	$line.replace("not", "100%")
+#	above is a pseudo sed method that replaces the word 'not' in the sentence, with '100%' (old, new)
+#	#line.replace(" ", "_")
+}
+
+#tier string
+$words = @"
+coom
+coomer
+cooming
+coomed
+coomy
+coomist
+coomsumer
+coomunist
+coomercial
+coomunicate
+coomly
+coomplex
+coompetent
+coompilation
+coompiler
+coompiled
+coom
+"@
+
+
+
+
+$words = "coom," "coomed", "cooming"
+
+$words -join ("-")
+# joins the above array of words on different lines, onto one line delimd by '-'
+
+$words -join ("--word" )
+# joins and attaches --word onto end of each element in new string
+
+#Remember: do funcs will perfomr the task at least once
+Do {
+	$unser_input = read-host
+} until ( $user_input.length -eq 0 )
+
+
+$values = @()
+Do {
+	$user_input = read-host
+	if ($user_input.length -ne 0){
+		[array]$values += $user_input}
+	} until ($user_input.length -eq 0)
+	OR
+	  until (user_input.length -eq [int]0)
+	  [string]::isnullorempty($user_input) ## determines if input is null or empty space
+#takes user input until nothing is entered and put the input values to an array
+($values | sort -property length -descending)[0]
+#sorts values array by property -length in descending order and grabs the top value
+
+get-process | select name | select * -First 1
+#selects first  process on match list
+
+#select is used to sort
+#where is used to filter
+
+get-process | select * | where { $_.name -like "*" } # ( $_ = current object in pipeline )
+#same as
+get-process | select * | where -propertyname -like "*"
+
+
+get-process | select * | where {($_.name).endswith("pad")}
+
+#below tests elements of array if they are greater than 0, gets the sum of them
+function Get-SumOfPositive($NumberArray)
+{
+    ($NumberArray -gt 0 | measure -Sum).Sum
+}
+
+
+#object practice
+
+function maths{
+
+$menu = New-object -typename psobject
+$menu | add-member -membertype noteproperty -name 1 -value "add stuff"
+												  ^            ^^^ 		these items can be changed  
+
+
+[string]::IsNullOrempty($user_input)
+or
+Isnullorwhitespace($user_input)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
