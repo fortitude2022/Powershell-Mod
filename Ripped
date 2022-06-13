@@ -1,0 +1,267 @@
+#Question 1 
+
+<#
+
+#Option 1
+
+return $var1*$var2*$var3*$var4
+
+#Option 2
+
+$sum = ($var1*$var2*$var3*$var4)
+
+return $sum
+
+#>
+
+#################################################
+
+#Question 2
+
+<#
+
+#Option 1
+
+foreach($whatever in $arr) {
+
+    if($whatever[0] -eq $key) {
+
+        return $whatever[9]
+
+    }
+
+}
+
+return -1
+
+#If you put a 'return -1' within the foreach, it breaks out of the loop
+
+#Option 2
+
+$x = 0
+
+foreach($i in $arr) {
+
+    if($arr[$x][0] -eq $key){
+
+        return $arr[$x][9]
+
+    }
+
+    $x = $x + 1
+
+}
+
+return -1
+
+}
+
+#>
+
+#################################################
+
+#Question 3 
+
+<#
+
+#Option 1
+
+$num = 0
+
+$high = 0
+
+while ($num -ne -1){
+
+    [int]$num = Read-Host -Prompt "put in a positive number"
+
+    if ($num -gt $high){
+
+        $high = $num
+
+    }
+
+}
+
+return $high
+
+#Option 2
+
+$ints = @()
+
+do {
+
+    [int]$read = Read-Host -Prompt "put in a positive number"
+
+        if ( $read -ne -1 ) {
+
+            $ints += $read
+
+        }
+
+} Until ( $read -eq -1 )
+
+return ($ints | Measure-Object -Maximum).Maximum
+
+}
+
+#>
+
+#################################################
+
+#Question 4
+
+<#
+
+#Option 1
+
+$content = Get-Content -Path $filename
+
+return $content[$whichline]
+
+#Option 2
+
+return (Get-Content -Path $filename)[$whichline]
+
+#Option 3
+
+Get-Content -Path $filename | Select -Index $whichline
+
+#Option 4
+
+foreach ($line in $filename) {
+
+    return (Get-Content -Path $filename -TotalCount 50)[$whichline]
+
+}
+
+#>
+
+#################################################
+
+#Question 5
+
+<#
+
+#Option 1
+
+Get-ChildItem -path $path | Sort-Object -Property Name
+
+#>
+
+#################################################
+
+#Question 6
+
+<#
+
+#Option 1
+
+$sum = 0 
+
+    foreach ( $element in $input) {
+
+        $sum += $element    
+
+    }
+
+return $sum
+
+#>
+
+#################################################
+
+#Question 7
+
+<#
+
+#Option 1    
+
+Get-Command -Noun process
+
+#>
+
+#################################################
+
+#Question 8
+
+<#
+
+#Option 1  
+
+return "Powershell is $adjective"
+
+#>
+
+#################################################
+
+#Question 9
+
+<#
+
+#Option 1
+
+if ($addr -match "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)") {
+
+    return $true
+
+}
+
+else {
+
+    return $false
+
+}
+
+#Option 2
+
+if ($addr -as [IPAddress]) {
+
+    return $true
+
+}
+
+else {
+
+    return $false
+
+}
+
+#Option 3
+
+return $addr -as [IPAddress] -as [Bool]
+
+#>
+
+#################################################
+
+#Question 10
+
+<#
+
+#Option 1
+
+$hashes = get-filehash $filepath | select-object -ExpandProperty Hash
+
+if ($hashes -ne $lasthash) {
+
+    return $true
+
+}
+
+else {
+
+    $false
+
+}
+
+#Option 2
+
+$newhashes = get-filehash $filepath
+
+return $newhashes.Hash -ne $lasthash
+
+#Option 3
+
+return (get-filehash $filepath).Hash -ne $lasthash
+
+#>
